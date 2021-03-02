@@ -1,0 +1,47 @@
+<html>
+    <head>
+      <title>Jokes</title>
+      <%- include('common/head'); %>
+    </head>
+
+    <body>
+      <script>
+        $(document).ready(function () {
+          $('#home').click(function () {
+            reloadJokes();
+          });
+        });
+
+        function reloadJokes() {
+          var id = Math.floor(Math.random() * 20) + 1;
+          fetch('/more/' + id,
+            {
+              type: 'GET',
+              headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+              dataType: 'jsonp'
+            }).then(function (response) {
+              if (response.ok) {
+                return response.text();
+              }
+              throw new Error('Request failed.');
+            }).then(function (data) {
+              var response = JSON.parse(data);
+              // Render the jokes based on the API
+              $("#setup").html(response.data.setup);
+              $("#punchline").html(response.data.punchline);
+            }).catch(function (error) {
+              console.log(error);
+            }); 
+        };
+      </script>
+
+      <%- include('common/header'); %>
+        <div id="home" style="height: 50%;">
+            <div class="container text-center" style="color: #150d01;">
+              <h2 id="setup"></h2>
+              <h2 id="punchline"></h2>
+            </div>
+        </div>
+        <%- include('common/footer'); %>
+    </body>
+</html>

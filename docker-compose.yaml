@@ -1,0 +1,52 @@
+version: '3.6'
+
+x-common-variables: &common-variables
+  MYSQL_PASSWORD: password
+  MYSQL_USER: root
+  MYSQL_DATABASE: jokesdb 
+
+services:
+    fib-db-service:
+        build:
+            context: ./jokes-db
+            dockerfile: Dockerfile
+        image: jokes-db
+        container_name: jokes-db-container
+        environment:
+            MYSQL_ROOT_PASSWORD: password
+        ports:
+            - "127.0.0.1:3306:3306"
+        expose:
+            - "3306"
+        networks:
+            - app-network
+    fib-app-service:
+        build:
+            context: ./jokes-app
+            dockerfile: Dockerfile
+        image: jokes-app
+        container_name: jokes-app-container
+        environment:
+          <<: *common-variables
+          MYSQL_HOST: jokes-db-service
+        depends_on:
+            - jokes-db-service
+        ports:
+            - "127.0.0.1:7000:7000"
+        expose:
+            - "7000"
+        links:
+            - jokes-db-service
+        networks:
+            - app-network
+
+
+networks:
+    app-network:
+        driver: bridge
+
+
+ 
+  
+
+
