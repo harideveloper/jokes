@@ -9,4 +9,4 @@ ENV MYSQL_DATABASE=jokesdb \
     MYSQL_ROOT_PASSWORD=password
 
 # when container will be started, we'll have `fibdb` database created with this schema
-COPY ./create-db.sql /docker-entrypoint-initdb.d/
+COPY ./jokes.sql /docker-entrypoint-initdb.d/
