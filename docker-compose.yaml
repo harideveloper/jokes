@@ -32,7 +32,7 @@ services:
         depends_on:
             - jokes-db-service
         ports:
-            - "127.0.0.1:7000:7000"
+            - "127.0.0.1:3900:3900"
         expose:
             - "7000"
         links:
