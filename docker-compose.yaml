@@ -34,7 +34,7 @@ services:
         ports:
             - "127.0.0.1:3900:3900"
         expose:
-            - "7000"
+            - "3900"
         links:
             - jokes-db-service
         networks:
