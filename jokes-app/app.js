@@ -9,7 +9,7 @@ app.use('/public', express.static(path.join(__dirname, 'public')))
 // routes
 require("./routes/routes.js")(app);
 
-const PORT = process.env.PORT || 3900;
+const PORT = process.env.PORT || 7000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
